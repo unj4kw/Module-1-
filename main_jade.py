@@ -6,6 +6,5 @@ for column in df.columns:
     print(column)
 
 
-#%
-##%pip install pandas 
-
+##%%
+##%pip install pandas
