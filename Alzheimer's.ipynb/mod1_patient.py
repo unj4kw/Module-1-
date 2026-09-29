@@ -4,6 +4,8 @@ import os
 csv_name = 'Metadata and Protein Data for Module 1.csv'
 
 class Patient:
+    # Defines objects that represent patients in the dataset.
+    # Each patient has attributes corresponding to the columns in the CSV file.
     def __init__(self, donor_id, age_at_death, sex, education, years_education, apoe_genotype, cognitive_status, age_onset, age_diagnosis, thal, braak, abeta40, abeta42, ttau, ptau, mmse = None, mmse_interval = None, ad_change = None):
 
     # The following lines convert certain attributes to float if they are numbers, by running them through the _create_float method.
@@ -23,8 +25,7 @@ class Patient:
         self.ttau = self._create_float(ttau)
         self.ptau = self._create_float(ptau)
 
-
-        self.mmse = self._create_float(mmse) 
+        self.mmse = self._create_float(mmse) # Last MMSE score (0-30, higher = better cognition).
         self.mmse_interval = self._create_float(mmse_interval) # Finds months between MMSE and death, due to older scores being less reliable.
         self.ad_change = ad_change # Determines the pathologist's overall AD rating.
 
@@ -65,6 +66,8 @@ class Patient:
     # Create patient objects from the CSV file and store them in a list. 
     # This method reads the CSV file, creates a Patient object for each row, and returns a list of all Patient objects.
     
+        # If the CSV can't be found in the current working directory, it looks for it in the same folder as this file.
+        # This fixed the "file not found" error encountered.
         if not os.path.isfile(csv_file):
             script_dir = os.path.dirname(os.path.abspath(__file__))
             csv_file = os.path.join(script_dir, csv_file)
@@ -126,6 +129,7 @@ class Patient:
                     continue
 
             if ad_change is not None and patient.ad_change != ad_change: 
+            # Keeps only patients with the given overall AD pathology rating.
                 continue
             results.append(patient)
             # This line is reached if the patient passes every filter, so they are appended to the list.
