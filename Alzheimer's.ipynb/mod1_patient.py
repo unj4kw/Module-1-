@@ -71,7 +71,7 @@ class Patient:
         if not os.path.isfile(csv_file):
             script_dir = os.path.dirname(os.path.abspath(__file__))
             csv_file = os.path.join(script_dir, csv_file)
-            patients = [] # Empty list to store the patient objects.
+        patients = [] # Empty list to store the patient objects.
     
         with open(csv_file, newline='') as csvfile:
         # Opens the CVS file for reading.
